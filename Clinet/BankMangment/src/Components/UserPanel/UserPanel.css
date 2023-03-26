@@ -1,0 +1,95 @@
+.panelContainer {
+    width: 80%;
+    margin: 10px auto;
+    overflow: auto;
+    padding: 10px;
+}
+
+
+.addUser {
+    width: 100%;
+    overflow: auto;
+}
+
+.addUser a {
+    float: right;
+    padding: 10px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #ff779b;
+    color: #fff;
+    text-decoration: none;
+
+}
+
+.addUser a:hover {
+    color: #ff779b;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+
+
+.panelContainer table {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
+    border-radius: 10px;
+    /* margin: 10px; */
+}
+
+.panelContainer table thead th {
+    text-align: start;
+    padding: 10px 0px;
+}
+
+.panelContainer table tbody tr td {
+    padding: 10px;
+
+}
+
+.panelContainer table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.panelContainer table tbody button {
+    padding: 10px;
+    border: none;
+    border-radius: 0%;
+    background-color: #ff779b;
+    cursor: pointer;
+}
+
+.panelContainer table tbody button .iconFont {
+    color: #fff;
+}
+
+.panelContainer table tbody button:hover .iconFont {
+    animation: prld_one 4s infinite linear;
+}
+
+@keyframes prld_one {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.5) rotate(180deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+.panelContainer table tbody tr:nth-child(even) {
+    background-color: #ddd;
+}
+
+@media (max-width:768px) {}
+
+
+@media (max-width:500px) {}

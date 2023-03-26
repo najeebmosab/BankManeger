@@ -1,0 +1,86 @@
+.loginContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background: url("../../assets/images/pexels-photo-351264.jpeg");
+    background-size: cover;
+    background-position: center center;
+    object-fit: cover;
+    position: relative;
+
+}
+
+.loginContainer::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.loginContainer .loginForm {
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.55);
+    box-shadow: 0px 8px 32px 0 rgba(0, 0, 0, 0.33);
+    backdrop-filter: blur(2px);
+    padding: 0px 16px 16px 16px;
+    border-radius: 16px;
+    width: 300px;
+    margin: auto;
+}
+
+.loginContainer .loginForm h3 {
+    text-align: center;
+    padding: 10px;
+}
+
+.loginContainer .loginForm .errorHandler{
+    color: red;
+    text-align: center;
+    width: 80%;
+    margin: 10px auto;
+}
+
+.loginContainer .loginForm label {
+    display: block;
+    width: 100%;
+    padding: 10px 0px;
+}
+
+.loginContainer .loginForm input {
+    width: -webkit-fill-available;
+    padding: 7px;
+    outline: none;
+}
+
+.loginContainer .loginForm .loginBTN {
+    cursor: pointer;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #016cee;
+    width: 100%;
+    color: #fff;
+}
+
+.loginContainer .loginForm .loginBTN:hover{
+    background-color: #0073ff;
+}
+
+.loginContainer .loginForm .linkSingup {
+    margin: 10px 0px;
+    padding: 10px 0px;
+
+}
+
+.loginContainer .loginForm .linkSingup a {
+    text-decoration: none;
+    color: #016cee;
+    font-weight: 700;
+
+}

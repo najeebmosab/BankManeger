@@ -1,0 +1,46 @@
+.errorHandler{
+    float: right;
+    overflow: auto;
+    color: red;
+    margin: 10px 50px;
+    height: fit-content;
+}
+.addNewUser{
+    width: 50%;
+    box-shadow: 0px 8px 32px 0 rgba(0, 0, 0, 0.33);
+    border-radius: 10px;
+    margin: 50px auto;
+    height: fit-content;
+    padding: 10px;
+    
+}
+
+.addNewUser div label{
+    display: block;
+    width: 100%;
+    margin: 10px;
+}
+.addNewUser div input{
+    width: -webkit-fill-available;
+    padding: 7px;
+    margin: 10px;
+}
+.addNewUser div.btnDiv{
+    width: 100%;
+    text-align: center;
+}
+.addNewUser div button{
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #ff788c;
+    cursor: pointer;
+    width: 50%;
+    margin: 10px 0px;
+}
+
+.addNewUser div button:hover{
+    background-color: #ff8698;
+
+}
