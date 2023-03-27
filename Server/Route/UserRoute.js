@@ -80,134 +80,118 @@ router.post("/", async (req, res) => {
     }
 });
 
+async function updateUserCashAndCredit(req, res) {
 
-
-router.post("/updateCredit", async (req, res, next) => {
-    const { passportId, credit } = req.body;
-    console.log(passportId, credit);
     try {
         // Find user by passport ID
-        const user = await UserModel.findOne({ passportId });
-        if (!user) {
-            res.status(404)
-            throw new Error('User not found')
+        const { passportId, update, typeOfUpdate } = req.body;
+        const user = await getUserByPassportId(req, res);
+
+        // Check if update is positive
+        if (update <= 0) {
+            return res.status(400).json({ message: 'update must be a positive number' });
         }
-        // Check if credit is positive
-        if (credit <= 0) {
-            return res.status(400).json({ message: 'Credit must be a positive number' });
-        }
-        // Update user's credit
-        user.credit = credit;
+        // Update user's update
+        user[typeOfUpdate] = update;
         await user.save();
 
-        res.json({ message: `Updated user ${user.name}'s credit to ${credit}` });
+        res.json({ message: `Updated user ${user.name}'s update to ${update}` });
     } catch (err) {
         next(err);
     }
+}
+
+router.post("/updateCredit", async (req, res, next) => {
+    updateUserCashAndCredit(req, res);
 });
 
 router.post("/updateCash", async (req, res) => {
-    const { passportId, cash } = req.body;
-    console.log(passportId, cash);
-    try {
-        // Find user by passport ID
-        const user = await UserModel.findOne({ passportId: passportId });
-        if (!user) {
-            res.status(404)
-            throw new Error('User not found')
-        }
-        // Check if credit is positive
-        if (cash <= 0) {
-            return res.status(400).json({ message: 'cash must be a positive number' });
-        }
-        // Update user's credit
-        user.cash = cash;
-        await user.save();
-
-        res.json({ message: `Updated user ${user.email}'s credit to ${cash}` });
-    } catch (err) {
-        res.json({ message: err.message });
-
-    }
+    updateUserCashAndCredit(req, res);
 });
 
+async function getUserByPassportId(req, res) {
+    // Find user by passport ID
+    const { passportId, update } = req.body;
+    const user = await UserModel.findOne({ passportId: passportId });
+    if (!user) {
+        res.status(404)
+        throw new Error('User not found')
+    }
+    return user;
+}
 
 router.post("/WithdrawMoney", async (req, res) => {
-    const { passportId, amount } = req.body;
 
     try {
-        // Find user by passport ID
-        const user = await UserModel.findOne({ passportId: passportId });
-        if (!user) {
-            res.status(404)
-            throw new Error('User not found')
-        }
 
+        const { passportId, update, typeOfUpdate } = req.body;
+        const user = await getUserByPassportId(req, res);
         // Check if user has enough funds in their wallet
         const totalFunds = user.cash + user.credit;
-        if (amount > totalFunds) {
+        if (update > totalFunds) {
             res.status(400)
             throw new Error('Not enough funds');
         }
 
         // Subtract amount from user's funds
-        if (amount <= user.cash) {
-            user.cash -= amount;
+        if (update <= user.cash) {
+            user.cash -= update;
         } else {
-            user.credit -= (amount - user.cash);
+            user.credit -= (update - user.cash);
             user.cash = 0;
         }
         await user.save();
-        res.json({ message: `Withdrew ${amount} from user ${user.eamil}'s wallet`, userCash: user.cash, userCredit: user.credit });
+        res.json({ message: `Withdrew ${update} from user ${user.eamil}'s wallet`, userCash: user.cash, userCredit: user.credit });
     } catch (err) {
         res.json({ message: `Somthing Error` });
     }
 });
 
-router.post("/Transfer", async (req, res) => { 
+router.post("/Transfer", async (req, res) => {
 
     const { senderPassportId, receiverPassportId, amount } = req.body;
 
     try {
-      // Find sender user by passport ID
-      const sender = await UserModel.findOne({ passportId: senderPassportId });
-      if (!sender) {
-         res.status(404)
-         throw new Error('Sender user not found') 
-      }
-  
-      // Find receiver user by passport ID
-      const receiver = await UserModel.findOne({ passportId: receiverPassportId });
-      if (!receiver) {
-        res.status(404)
-        throw new Error('reciver user not found')
-      }
-  
-      // Check if sender has enough cash and credit to transfer
-      if (amount > (sender.cash + sender.credit) ) {
-        res.status(400)
-        throw new Error ('Not enough funds');
-      }
-  
-      // Deduct cash and credit from sender
-      if (sender.cash >= amount) {
-        sender.cash -= amount;
-      } else {
-        sender.credit -= (amount - sender.cash);
-        sender.cash = 0;
-      }
-      await sender.save();
-  
-      // Add cash and credit to receiver
-      receiver.cash += amount;
-      await receiver.save();
-  
-      res.json({ message: `Transferred ${amount} from ${sender.email} to ${receiver.email}` });  
+        // Find sender user by passport ID
+        const sender = await UserModel.findOne({ passportId: senderPassportId });
+        if (!sender) {
+            res.status(404)
+            throw new Error('Sender user not found')
+        }
+
+        // Find receiver user by passport ID
+        const receiver = await UserModel.findOne({ passportId: receiverPassportId });
+        if (!receiver) {
+            res.status(404)
+            throw new Error('reciver user not found')
+        }
+
+        // Check if sender has enough cash and credit to transfer
+        if (amount > (sender.cash + sender.credit)) {
+            res.status(400)
+            throw new Error('Not enough funds');
+        }
+
+        // Deduct cash and credit from sender
+        if (sender.cash >= amount) {
+            sender.cash -= amount;
+        } else {
+            sender.credit -= (amount - sender.cash);
+            sender.cash = 0;
+        }
+        await sender.save();
+
+        // Add cash and credit to receiver
+        receiver.cash += amount;
+        await receiver.save();
+
+        res.json({ message: `Transferred ${amount} from ${sender.email} to ${receiver.email}` });
     } catch (err) {
-        res.json({ message: `Transferred feild` });  
+        res.json({ message: `Transferred feild` });
 
     }
 })
+
 router.post("/isLogin", (req, res) => {
     debugger
     console.log(res.cookie("token"));

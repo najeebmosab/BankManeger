@@ -1,0 +1,98 @@
+.d-flexUpdate {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px 0px;
+}
+
+
+.d-flexUpdate button {
+    padding: 10px;
+    border: none;
+    border-radius: 0%;
+    background-color: rgb(103, 255, 103);
+    cursor: pointer;
+}
+
+
+.d-flexUpdate button .iconFont {
+    color: #fff;
+}
+
+.d-flexUpdate button:hover .iconFont {
+    animation: prld_one 4s infinite linear;
+}
+
+@keyframes prld_one {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.5) rotate(180deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+.d-visibility {
+    visibility: hidden;
+}
+
+.checkIconFont {
+    margin: 0px 10px;
+    color: rgb(86, 255, 86);
+    cursor: pointer;
+
+}
+
+.removeIconFont {
+    color: rgb(255, 78, 78);
+    cursor: pointer;
+
+}
+
+.WithdrawAndTransferring {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.WithdrawAndTransferring section{
+    margin: 10px;
+}
+.WithdrawAndTransferring section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.WithdrawAndTransferring section button{
+    margin: 10px 0px;
+    padding: 10px;
+    background-color: #ffc107;
+    border: none;
+    cursor: pointer;
+}
+.WithdrawAndTransferring section button.primary{
+    background-color: #198754;
+}
+.WithdrawAndTransferring section button .iconFont{
+    color: #fff;
+}
+
+.WithdrawAndTransferring section button:hover .iconFont{
+    animation: prld_one 4s infinite linear;
+}
+/* .WithdrawMoney{
+    width:  -webkit-fill-available;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    height: fit-content;
+} */
+
+.transfer input:first-child{
+    display: block;
+}

@@ -20,14 +20,12 @@ function UserPanel() {
     function controllerHandler(id) {
         navigate("EditUser",{state:id});
     }
-
     console.log(Users);
     return (<>
         <div className="panelContainer">
             <div className="addUser">
                 <Link to="AddUser">Add User</Link>
             </div>
-
             <table>
                 <thead>
                     <th>email</th>
@@ -43,7 +41,6 @@ function UserPanel() {
                             return (
                                 <>
                                     {
-
                                         <tr key={user?._id}>
                                             <td>{user?.email}</td>
                                             <td>{user?.credit}</td>
